@@ -4,7 +4,7 @@ import { Student } from "../../models";
 
 export interface DashBoardStatistics {
     maleCount: number;
-    female: number;
+    femaleCount: number;
     hightMarkCount: number;
     lowMarkCount: number;
 }
@@ -26,7 +26,7 @@ const initialState: DashboardState = {
     loading: false,
     statistics: {
         maleCount: 0,
-        female: 0,
+        femaleCount: 0,
         hightMarkCount: 0,
         lowMarkCount: 0,
     },
