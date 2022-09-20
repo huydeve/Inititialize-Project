@@ -8,6 +8,7 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
+  incrementByAmountSaga,
 } from './counterSlice';
 import styles from './Counter.module.css';
 
@@ -51,15 +52,18 @@ export function Counter() {
           Add Amount
         </button>
         <button
+          className={styles.button}
+          onClick={() => dispatch(incrementByAmountSaga(incrementValue))}
+        >
+          Add Saga
+        </button>
+        <button
           className={styles.asyncButton}
           onClick={() => dispatch(incrementAsync(incrementValue))}
         >
           Add Async
         </button>
-        <button
-          className={styles.button}
-          onClick={() => dispatch(incrementIfOdd(incrementValue))}
-        >
+        <button className={styles.button} onClick={() => dispatch(incrementIfOdd(incrementValue))}>
           Add If Odd
         </button>
       </div>

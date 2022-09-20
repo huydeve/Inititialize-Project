@@ -1,0 +1,11 @@
+.root{
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+}
+
+.paper {
+    padding: 16px;
+}

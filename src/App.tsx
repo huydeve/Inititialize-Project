@@ -1,57 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-
+import { Route, Routes } from 'react-router-dom';
+import { useAppDispatch } from './app/hooks';
+import { NotFound, PrivateRoute } from './components/Common';
+import { Admin } from './components/Layout';
+import LoginPage from './features/auth/pages/LoginPage';
+import Button from '@mui/material/Button/Button';
+import DashBoard from './features/dashboard';
+import Student from './features/student';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route element={<Admin />}>
+          <Route path="/admin/dashboard" element={<DashBoard />} />
+          <Route path="/admin/student" element={<Student />} />
+        </Route>
+        {/* </Route> */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
