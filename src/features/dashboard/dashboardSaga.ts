@@ -26,7 +26,6 @@ function* fetchStatistics() {
             _page: 1,
             _limit: 1,
             mark_lte: 5
-
         }),
     ])
 
@@ -55,7 +54,7 @@ function* fetchLowestStudentList() {
         _order: "asc",
         _sort: 'mark'
     })
-    yield put(dashboardActions.setHighestStudentList(data))
+    yield put(dashboardActions.setLowestStudentList(data))
 }
 function* fetchRankingByCityList() {
     //Fetch City list
@@ -72,6 +71,7 @@ function* fetchRankingByCityList() {
     const responseList: Array<ListResponse<Student>> = yield all(callList);
     const rankingByCityList: Array<RankingByCity> = responseList.map((response, id) => ({
         cityId: cityList[id].code,
+        cityName: cityList[id].name,
         rankingList: response.data
     }))
 

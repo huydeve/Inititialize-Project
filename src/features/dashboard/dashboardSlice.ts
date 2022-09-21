@@ -10,6 +10,7 @@ export interface DashBoardStatistics {
 }
 export interface RankingByCity {
     cityId: string;
+    cityName: string;
     rankingList: Student[];
 }
 
@@ -19,7 +20,6 @@ export interface DashboardState {
     highestStudentList: Student[];
     lowestStudentList: Student[];
     rankingByCityList: RankingByCity[]
-
 }
 
 const initialState: DashboardState = {
@@ -35,7 +35,6 @@ const initialState: DashboardState = {
     rankingByCityList: []
 
 }
-
 
 const dashboardSlide = createSlice({
     name: 'dashboard',
@@ -58,7 +57,7 @@ const dashboardSlide = createSlice({
         setHighestStudentList(state, action: PayloadAction<Student[]>) {
             state.highestStudentList = action.payload;
         },
-        setLowest(state, action: PayloadAction<Student[]>) {
+        setLowestStudentList(state, action: PayloadAction<Student[]>) {
             state.lowestStudentList = action.payload;
         },
 
