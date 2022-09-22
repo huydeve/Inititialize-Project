@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Outlet } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import { cityAction, citySelector } from '../city/citySlice';
+import { RootState } from '../../app/store';
 
 type Props = {
   fetchCityList: () => void;
@@ -24,5 +25,7 @@ class Student extends Component<Props, State> {
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(cityAction, dispatch);
-
-export default connect(citySelector, mapDispatchToProps)(Student);
+const mapStateToProps = (state: RootState) => {
+  return {};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Student);
