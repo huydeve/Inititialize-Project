@@ -16,7 +16,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { City, Student } from '../../../models';
+import { City, initialStudent, Student } from '../../../models';
 import { capitalizeString, getMarkColor } from '../../../utils';
 interface Props {
   studentList: Student[];
@@ -32,14 +32,7 @@ interface State {
   selectedStudent: Student;
 }
 
-const initialStudent: Student = {
-  name: '',
-  age: 0,
-  city: '',
-  gender: 'male',
-  mark: 0,
-  id: '',
-};
+
 
 export class StudentRankingList extends Component<Props, State> {
   state = {
@@ -61,8 +54,9 @@ export class StudentRankingList extends Component<Props, State> {
     this.setState({ open: false });
   };
 
+
   render() {
-    const { studentList, onEdit, onRemove, cityMap } = this.props;
+    const { studentList, onEdit, cityMap } = this.props;
     const { open, selectedStudent } = this.state;
     return (
       <>
@@ -96,14 +90,12 @@ export class StudentRankingList extends Component<Props, State> {
                       <Button
                         sx={{ mr: 1 }}
                         variant="contained"
-                        color="secondary"
                         onClick={() => onEdit?.(row)}
                       >
                         Edit
                       </Button>
                       <Button
                         variant="outlined"
-                        color="secondary"
                         onClick={() => this.handleRemoveClick(row)}
                       >
                         Remove
