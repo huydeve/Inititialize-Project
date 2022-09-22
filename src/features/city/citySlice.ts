@@ -31,14 +31,16 @@ export const citySlide = createSlice({
     }
 })
 
-export const cityReducer = citySlide.reducer
 
 export const cityAction = citySlide.actions
 
-export const citySelector = (state: RootState) => ({
-    
-})
+export const citySelector = (state: RootState) => state.city.list
+export const selectCityOptions = createSelector(citySelector, (cityList) => cityList.map((city) => ({
+    label: city.name,
+    value: city.code
+})))
 
+const cityReducer = citySlide.reducer
 
 
 export default cityReducer
