@@ -3,13 +3,14 @@ import {
   Button,
   LinearProgress,
   Pagination,
-  Typography
+  Typography,
 } from '@mui/material';
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import studentApi from '../../../api/studentApi';
 import { RootState } from '../../../app/store';
-import { City, ListParams } from '../../../models';
+import { City, ListParams, Student } from '../../../models';
 import StudentFilters from '../components/StudentFilters';
 import StudentTable from '../components/StudentTable';
 import { studentAction, StudentState } from '../studentSlide';
@@ -33,13 +34,6 @@ const convertListToMap = (list: City[]) => {
 };
 
 export class ListPage extends Component<Props, State> {
-  handleChange = (e: React.ChangeEvent<unknown>, page: number) => {
-    this.props.setFilter({
-      ...this.props.filter,
-      _page: page,
-    });
-  };
-
   componentDidMount(): void {
     const { filter, fetchStudentList } = this.props;
 
@@ -52,6 +46,13 @@ export class ListPage extends Component<Props, State> {
     }
   }
 
+  handlePaginationChange = (e: React.ChangeEvent<unknown>, page: number) => {
+    this.props.setFilter({
+      ...this.props.filter,
+      _page: page,
+    });
+  };
+
   handleSearchChange = (newFilter: ListParams) => {
     const { setFilterWithDebounce } = this.props;
     setFilterWithDebounce(newFilter);
@@ -60,6 +61,16 @@ export class ListPage extends Component<Props, State> {
   handleFilterChange = (newFilter: ListParams) => {
     const { setFilter } = this.props;
     setFilter(newFilter);
+  };
+
+  handleRemoveStudent = async (student: Student) => {
+    console.log(student);
+    const { setFilter, filter } = this.props;
+    try {
+      await studentApi.remove(student?.id || '');
+      //clone filter to change reference to help redux see that have a new state from that re-render page
+      setFilter({...filter}); //needed keep the old filter
+    } catch (error) {}
   };
 
   render() {
@@ -83,7 +94,11 @@ export class ListPage extends Component<Props, State> {
           />
         </Box>
 
-        <StudentTable cityMap={convertListToMap(cityList)} studentList={list} />
+        <StudentTable
+          cityMap={convertListToMap(cityList)}
+          onRemove={this.handleRemoveStudent}
+          studentList={list}
+        />
         <Box mt={2} sx={S.containerPagination}>
           <Pagination
             showFirstButton
@@ -91,7 +106,7 @@ export class ListPage extends Component<Props, State> {
             color="primary"
             count={Math.ceil(pagination._totalRows / pagination._limit)}
             page={pagination?._page}
-            onChange={this.handleChange}
+            onChange={this.handlePaginationChange}
           />
         </Box>
       </Box>
