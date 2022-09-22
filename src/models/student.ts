@@ -9,3 +9,10 @@ export interface Student {
     updatedAt?: number;
 }
 
+export const initialStudent: Student = {
+    name: '',
+    age: 0,
+    city: '',
+    gender: 'male',
+    mark: 0,
+  };
