@@ -6,7 +6,6 @@ import { cityAction } from "./citySlice";
 function* fetchCityList() {
     try {
         const response: ListResponse<City> = yield call(cityApi.getAll)
-        console.log(response)
         yield put(cityAction.fetchCityListSuccess(response))
     } catch (error) {
         console.log('Failed to fetch city list', error);
